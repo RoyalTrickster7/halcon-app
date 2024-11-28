@@ -24,4 +24,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Registrar middleware de roles directamente en la ruta de administración
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::get('/admin', function () {
+        return 'Bienvenido al panel de administración';
+    });
+});
+
 require __DIR__.'/auth.php';
