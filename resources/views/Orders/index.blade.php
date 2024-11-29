@@ -37,6 +37,16 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                             </form>
+                            @if($order->status == 'Pedido' || $order->status == 'En Proceso')
+                                <form action="{{ route('orders.updateStatus', $order->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="hidden" name="status" value="{{ $order->status == 'Pedido' ? 'En Proceso' : 'En Ruta' }}">
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        {{ $order->status == 'Pedido' ? 'Marcar como En Proceso' : 'Marcar como En Ruta' }}
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

@@ -37,4 +37,9 @@ Route::middleware(['auth', 'role:Ventas|Admin'])->group(function () {
     Route::get('orders/manage-stock', [OrderController::class, 'manageStock'])->name('orders.manageStock');
 });
 
+Route::middleware(['auth', 'role:Almacén|Admin'])->group(function () {
+    Route::patch('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
+});
+
+
 require __DIR__.'/auth.php';

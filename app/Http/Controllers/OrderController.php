@@ -97,4 +97,22 @@ class OrderController extends Controller
         // Lógica para gestionar el stock faltante
         return view('orders.manage_stock');
     }
+
+    public function updateStatus(Request $request, Order $order)
+{
+    // Validar el estado
+    $request->validate([
+        'status' => 'required|string|in:En Proceso,En Ruta',
+    ]);
+
+    // Actualizar el estado del pedido
+    $order->status = $request->status;
+    $order->save();
+
+    // Redireccionar con un mensaje de éxito
+    return redirect()->route('orders.index')->with('success', 'El estado del pedido ha sido actualizado correctamente.');
+}
+
+
+
 }
