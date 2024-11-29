@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\OrderController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -29,6 +30,11 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/admin', function () {
         return 'Bienvenido al panel de administración';
     });
+});
+
+Route::middleware(['auth', 'role:Ventas|Admin'])->group(function () {
+    Route::resource('orders', OrderController::class);
+    Route::get('orders/manage-stock', [OrderController::class, 'manageStock'])->name('orders.manageStock');
 });
 
 require __DIR__.'/auth.php';
