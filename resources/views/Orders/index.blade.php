@@ -37,16 +37,19 @@
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
                             </form>
-                            @if($order->status == 'Pedido' || $order->status == 'En Proceso')
-                                <form action="{{ route('orders.updateStatus', $order->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('PATCH')
-                                    <input type="hidden" name="status" value="{{ $order->status == 'Pedido' ? 'En Proceso' : 'En Ruta' }}">
-                                    <button type="submit" class="btn btn-primary btn-sm">
-                                        {{ $order->status == 'Pedido' ? 'Marcar como En Proceso' : 'Marcar como En Ruta' }}
-                                    </button>
-                                </form>
-                            @endif
+
+                            {{-- Formulario para actualizar el estado --}}
+                            <form action="{{ route('orders.updateStatus', $order->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('PATCH')
+                                <select name="status" class="form-select form-select-sm d-inline-block w-auto">
+                                    <option value="Pedido" {{ $order->status == 'Pedido' ? 'selected' : '' }}>Pedido</option>
+                                    <option value="En Proceso" {{ $order->status == 'En Proceso' ? 'selected' : '' }}>En Proceso</option>
+                                    <option value="En Ruta" {{ $order->status == 'En Ruta' ? 'selected' : '' }}>En Ruta</option>
+                                    <option value="Entregado" {{ $order->status == 'Entregado' ? 'selected' : '' }}>Entregado</option>
+                                </select>
+                                <button type="submit" class="btn btn-primary btn-sm">Actualizar Estado</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

@@ -99,20 +99,18 @@ class OrderController extends Controller
     }
 
     public function updateStatus(Request $request, Order $order)
-{
-    // Validar el estado
-    $request->validate([
-        'status' => 'required|string|in:En Proceso,En Ruta',
-    ]);
-
-    // Actualizar el estado del pedido
-    $order->status = $request->status;
-    $order->save();
-
-    // Redireccionar con un mensaje de éxito
-    return redirect()->route('orders.index')->with('success', 'El estado del pedido ha sido actualizado correctamente.');
-}
-
-
+    {
+        // Validar el estado
+        $request->validate([
+            'status' => 'required|string|in:Pedido,En Proceso,En Ruta,Entregado',
+        ]);
+    
+        // Actualizar el estado del pedido
+        $order->status = $request->status;
+        $order->save();
+    
+        // Redireccionar con un mensaje de éxito
+        return redirect()->route('orders.index')->with('success', 'El estado del pedido ha sido actualizado correctamente.');
+    }
 
 }
