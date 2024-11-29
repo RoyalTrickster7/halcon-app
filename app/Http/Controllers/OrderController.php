@@ -33,18 +33,24 @@ class OrderController extends Controller
      * Store a newly created order in storage.
      */
     public function store(Request $request): RedirectResponse
+{
+    // Validar y almacenar un nuevo pedido (rol de Ventas)
+    $validatedData = $request->validate([
+        'customer_name' => 'required|string|max:255',
+        'product_details' => 'required|string',
+        'quantity' => 'required|integer|min:1',
+        'status' => 'required|string|in:Pedido,En Proceso,En Ruta,Entregado',
+    ]);
+
+    $order = Order::create($validatedData);
+
+    // Redirigir a la vista de confirmación del pedido
+    return redirect()->route('orders.confirmation', $order->id)->with('success', 'Pedido creado exitosamente. Número de Factura: ' . $order->id);
+}
+
+    public function confirmation(Order $order)
     {
-        // Validar y almacenar un nuevo pedido (rol de Ventas)
-        $validatedData = $request->validate([
-            'customer_name' => 'required|string|max:255',
-            'product_details' => 'required|string',
-            'quantity' => 'required|integer|min:1',
-            'status' => 'required|string|in:Pedido,En Proceso,En Ruta,Entregado',
-        ]);
-
-        Order::create($validatedData);
-
-        return redirect()->route('orders.index')->with('success', 'Pedido creado exitosamente.');
+    return view('orders.confirmation', compact('order'));
     }
 
     /**
