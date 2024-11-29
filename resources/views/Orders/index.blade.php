@@ -19,6 +19,7 @@
                     <th>Detalles del Producto</th>
                     <th>Cantidad</th>
                     <th>Estado</th>
+                    <th>Foto de Entrega</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -30,6 +31,11 @@
                         <td>{{ $order->product_details }}</td>
                         <td>{{ $order->quantity }}</td>
                         <td>{{ $order->status }}</td>
+                        <td>
+                        @if($order->photo_path)
+                          <img src="{{ Storage::url($order->photo_path) }}" alt="Foto de Entrega" class="img-thumbnail" style="max-width: 150px;">
+                        @endif
+                        </td>
                         <td>
                             <a href="{{ route('orders.edit', $order->id) }}" class="btn btn-warning btn-sm">Editar</a>
                             <form action="{{ route('orders.destroy', $order->id) }}" method="POST" class="d-inline">
@@ -50,6 +56,16 @@
                                 </select>
                                 <button type="submit" class="btn btn-primary btn-sm">Actualizar Estado</button>
                             </form>
+
+                            {{-- Formulario para subir foto --}}
+                            @if($order->status == 'En Ruta' || $order->status == 'Entregado')
+                                <form action="{{ route('orders.uploadPhoto', $order->id) }}" method="POST" enctype="multipart/form-data" class="d-inline">
+                                    @csrf
+                                    @method('PATCH')
+                                    <input type="file" name="photo" class="form-control-file d-inline-block w-auto mb-2" required>
+                                    <button type="submit" class="btn btn-info btn-sm">Subir Foto</button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach

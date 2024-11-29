@@ -113,4 +113,25 @@ class OrderController extends Controller
         return redirect()->route('orders.index')->with('success', 'El estado del pedido ha sido actualizado correctamente.');
     }
 
+    public function uploadPhoto(Request $request, Order $order)
+{
+    // Validar la foto
+    $request->validate([
+        'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+
+    // Subir la foto y almacenar la ruta
+    if ($request->hasFile('photo')) {
+        
+        $path = $request->file('photo')->store('orders', 'public');
+        $order->photo_path = $path; // El path será algo como 'orders/filename.jpg'
+        $order->save();
+    }
+
+    // Redireccionar con un mensaje de éxito
+    return redirect()->route('orders.index')->with('success', 'La foto ha sido subida correctamente.');
+}
+
+
+
 }

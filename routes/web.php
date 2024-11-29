@@ -41,5 +41,9 @@ Route::middleware(['auth', 'role:Almacén|Admin'])->group(function () {
     Route::patch('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
 });
 
+Route::middleware(['auth', 'role:Ruta|Admin'])->group(function () {
+    Route::patch('orders/{order}/upload-photo', [OrderController::class, 'uploadPhoto'])->name('orders.uploadPhoto');
+});
+
 
 require __DIR__.'/auth.php';
