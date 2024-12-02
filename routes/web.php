@@ -8,6 +8,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CustomerOrderStatusController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\API\OrderApiController;
+
 
 // Página principal
 Route::get('/', function () {
@@ -59,5 +61,8 @@ Route::post('order-status', [CustomerOrderStatusController::class, 'checkStatus'
 
 // Confirmación de pedidos
 Route::get('orders/confirmation/{order}', [OrderController::class, 'confirmation'])->name('orders.confirmation');
+
+Route::post('/orders', [OrderApiController::class, 'store']);
+Route::get('/orders/status', [OrderApiController::class, 'checkStatus']);
 
 require __DIR__ . '/auth.php';
