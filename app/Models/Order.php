@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
 
     /**
      * Definir la tabla asociada al modelo.
@@ -18,8 +18,6 @@ class Order extends Model
     /**
      * Definir los atributos que son asignables.
      */
-    use HasFactory;
-
     protected $fillable = [
         'customer_name',
         'product_details',
@@ -45,14 +43,9 @@ class Order extends Model
     }
 
     /**
-     * Mutador para el estado del pedido (por ejemplo, para convertir el estado en un formato específico).
+     * Establecer valor predeterminado para el atributo `status`.
      */
-    public function setStatusAttribute($value)
-    {
-        $this->attributes['status'] = ucfirst($value);
-    }
-
-    
+    protected $attributes = [
+        'status' => self::STATUS_PEDIDO,
+    ];
 }
-
-

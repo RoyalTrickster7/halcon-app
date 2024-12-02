@@ -117,10 +117,33 @@ function navigateTo(routeName) {
                         <!-- API Information -->
                         <div class="rounded-lg bg-white p-6 shadow dark:bg-zinc-900 lg:col-span-2">
                             <h2 class="text-xl font-semibold text-black dark:text-white">
-                                Documentación de la API (Próximamente)
+                                Documentación de la API
                             </h2>
                             <p class="mt-4 text-black dark:text-gray-400">
-                                Próximamente se incluirá información detallada sobre cómo utilizar la API, incluyendo los diferentes endpoints disponibles y cómo interactuar con ellos.
+                                La API permite interactuar con el sistema de gestión de pedidos. A continuación se detallan los endpoints disponibles:
+                            </p>
+                            <ul class="mt-4 list-disc pl-5 text-black dark:text-gray-400">
+                                <li>
+                                    <strong>POST /orders</strong> - Crear un nuevo pedido.
+                                    <ul class="list-disc pl-5">
+                                        <li><strong>Parámetros requeridos:</strong></li>
+                                        <li><code>customer_name</code>: Nombre del cliente (string).</li>
+                                        <li><code>product_details</code>: Detalles del producto (string).</li>
+                                        <li><code>quantity</code>: Cantidad (integer).</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <strong>GET /orders/status</strong> - Consultar el estado de un pedido.
+                                    <ul class="list-disc pl-5">
+                                        <li><strong>Parámetros requeridos:</strong></li>
+                                        <li><code>customer_name</code>: Nombre del cliente (string).</li>
+                                        <li><code>order_id</code>: ID del pedido (integer).</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <p class="mt-4 text-black dark:text-gray-400">
+                                Para más detalles, visite la documentación completa en GitHub:
+                                <a href="#" class="text-blue-600 underline">https://github.com/RoyalTrickster7/api-halcon</a> <!-- Agregar enlace de GitHub aquí -->
                             </p>
                         </div>
                     </div>

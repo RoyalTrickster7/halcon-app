@@ -10,7 +10,6 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\API\OrderApiController;
 
-
 // Página principal
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -21,15 +20,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth', 'verified'])->get('/dashboard', function () {
-    $totalOrders = \App\Models\Order::count();
-    $totalUsers = \App\Models\User::count();
-    return view('dashboard', [
-        'totalOrders' => $totalOrders,
-        'totalUsers' => $totalUsers,
-    ]);
-})->name('dashboard');
-
+// Dashboard
+Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
 
 // Perfil de usuario (Acceso para cualquier usuario autenticado)
 Route::middleware('auth')->group(function () {
@@ -62,7 +54,10 @@ Route::post('order-status', [CustomerOrderStatusController::class, 'checkStatus'
 // Confirmación de pedidos
 Route::get('orders/confirmation/{order}', [OrderController::class, 'confirmation'])->name('orders.confirmation');
 
-Route::post('/orders', [OrderApiController::class, 'store']);
-Route::get('/orders/status', [OrderApiController::class, 'checkStatus']);
+// API para pedidos
+Route::prefix('api')->group(function () {
+    Route::post('/orders', [OrderApiController::class, 'store'])->name('api.orders.store');
+    Route::get('/orders/status', [OrderApiController::class, 'checkStatus'])->name('api.orders.checkStatus');
+});
 
 require __DIR__ . '/auth.php';

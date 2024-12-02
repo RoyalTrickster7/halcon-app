@@ -17,6 +17,9 @@ class OrderApiController extends Controller
             'quantity' => 'required|integer|min:1',
         ]);
 
+        // Agregar el estado predeterminado "Pedido"
+        $validatedData['status'] = Order::STATUS_PEDIDO;
+
         $order = Order::create($validatedData);
         return response()->json([
             'success' => true,
