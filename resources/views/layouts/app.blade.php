@@ -4,17 +4,16 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Sistema de Gestión de Pedidos') }}</title>
 
-  
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
 </head>
 <body>
+    <!-- Header común -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
+                {{ config('app.name', 'Sistema de Gestión de Pedidos') }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -22,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('dashboard') }}">Inicio</a>
+                        <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('orders.index') }}">Pedidos</a>
@@ -49,6 +48,7 @@
         </div>
     </nav>
 
+    <!-- Contenido de la página -->
     <main class="py-4" style="margin-top: 70px;">
         <div class="container">
             @yield('content')
@@ -57,7 +57,7 @@
 
     <footer class="footer bg-dark text-white mt-auto py-3">
         <div class="container text-center">
-            <span>&copy; {{ date('Y') }} {{ config('app.name', 'Laravel') }}. Todos los derechos reservados.</span>
+            <span>&copy; {{ date('Y') }} {{ config('app.name', 'Sistema de Gestión de Pedidos') }}. Todos los derechos reservados.</span>
         </div>
     </footer>
 </body>

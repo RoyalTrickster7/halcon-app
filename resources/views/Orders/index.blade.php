@@ -9,14 +9,27 @@
                         Lista de Pedidos
                     </h2>
 
-                    <a href="{{ route('orders.create') }}" class="inline-block px-4 py-2 mb-4 text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
-                        Crear Pedido
-                    </a>
+                    <div class="flex justify-between items-center mb-4">
+                        <a href="{{ route('orders.create') }}" class="inline-block px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">
+                            Crear Pedido
+                        </a>
+                        <a href="{{ route('orders.showStatusForm') }}" class="inline-block px-4 py-2 text-white bg-green-600 rounded hover:bg-green-700 focus:outline-none focus:bg-green-700">
+                            Consultar Estado de Pedido
+                        </a>
+                    </div>
 
                     @if(session('success'))
-                        <div class="alert alert-success">
+                        <div id="alert" class="fixed top-4 right-4 bg-green-500 text-white py-2 px-4 rounded shadow-lg">
                             {{ session('success') }}
                         </div>
+                        <script>
+                            setTimeout(() => {
+                                const alertBox = document.getElementById('alert');
+                                if (alertBox) {
+                                    alertBox.style.display = 'none';
+                                }
+                            }, 3000);
+                        </script>
                     @endif
 
                     <div class="overflow-x-auto">

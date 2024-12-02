@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -17,12 +18,14 @@ class Order extends Model
     /**
      * Definir los atributos que son asignables.
      */
+    use HasFactory;
+
     protected $fillable = [
         'customer_name',
         'product_details',
         'quantity',
         'status',
-        'photo_path'
+        'photo_path', // Si se necesita actualizar la foto también
     ];
 
     /**
@@ -48,4 +51,8 @@ class Order extends Model
     {
         $this->attributes['status'] = ucfirst($value);
     }
+
+    
 }
+
+

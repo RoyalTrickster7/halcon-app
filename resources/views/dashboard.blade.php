@@ -1,36 +1,48 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5">
-        <h1 class="mb-4">Dashboard</h1>
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <div class="card text-white bg-primary h-100">
-                    <div class="card-header">Total de Pedidos</div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $totalOrders }}</h5>
-                        <a href="{{ route('orders.index') }}" class="btn btn-light">Ver Pedidos</a>
-                    </div>
-                </div>
-            </div>
+    <div class="bg-gray-800 dark:bg-gray-900 min-h-screen py-12">
+        <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="overflow-hidden bg-gray-100 shadow-sm sm:rounded-lg dark:bg-gray-800">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h2 class="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200 mb-4">
+                        Dashboard
+                    </h2>
 
-            @role('Admin')
-            <div class="col-md-4 mb-3">
-                <div class="card text-white bg-success h-100">
-                    <div class="card-header">Total de Usuarios</div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ $totalUsers }}</h5>
-                        <a href="{{ route('admin.users.index') }}" class="btn btn-light">Ver Usuarios</a>
-                    </div>
-                </div>
-            </div>
-            @endrole
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Total de Pedidos -->
+                        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+                            <div class="p-6 text-gray-900 dark:text-gray-100">
+                                <h3 class="text-lg font-semibold">Total de Pedidos</h3>
+                                <p class="text-3xl font-bold">{{ $totalOrders }}</p>
+                                <a href="{{ route('orders.index') }}" class="mt-2 inline-block px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">
+                                    Ver Pedidos
+                                </a>
+                            </div>
+                        </div>
 
-            <div class="col-md-4 mb-3">
-                <div class="card text-white bg-warning h-100">
-                    <div class="card-header">Gestionar Stock</div>
-                    <div class="card-body">
-                        <a href="{{ route('orders.manageStock') }}" class="btn btn-light">Gestionar Stock</a>
+                        <!-- Total de Usuarios (Solo para Admin) -->
+                        @if (auth()->user()->hasRole('Admin'))
+                            <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+                                <div class="p-6 text-gray-900 dark:text-gray-100">
+                                    <h3 class="text-lg font-semibold">Total de Usuarios</h3>
+                                    <p class="text-3xl font-bold">{{ $totalUsers }}</p>
+                                    <a href="{{ route('admin.users.index') }}" class="mt-2 inline-block px-4 py-2 text-sm text-white bg-green-500 rounded hover:bg-green-600">
+                                        Ver Usuarios
+                                    </a>
+                                </div>
+                            </div>
+                        @endif
+
+                        <!-- Gestionar Stock -->
+                        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
+                            <div class="p-6 text-gray-900 dark:text-gray-100">
+                                <h3 class="text-lg font-semibold">Gestionar Stock</h3>
+                                <a href="{{ route('orders.manageStock') }}" class="mt-2 inline-block px-4 py-2 text-sm text-white bg-yellow-500 rounded hover:bg-yellow-600">
+                                    Gestionar Stock
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

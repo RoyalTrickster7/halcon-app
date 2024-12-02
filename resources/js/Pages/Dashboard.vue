@@ -1,6 +1,6 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 
 // Aquí están los props que vienen desde Laravel (DashboardController)
 defineProps({
@@ -32,10 +32,10 @@ defineProps({
             <div class="p-6 text-gray-900 dark:text-gray-100">
               <h3 class="text-lg font-semibold">Total de Pedidos</h3>
               <p class="text-3xl font-bold">{{ totalOrders }}</p>
-              <a
-                href="/orders"
+              <Link
+                :href="route('orders.index')"
                 class="mt-2 inline-block px-4 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600"
-                >Ver Pedidos</a
+                >Ver Pedidos</Link
               >
             </div>
           </div>
@@ -47,10 +47,10 @@ defineProps({
             <div class="p-6 text-gray-900 dark:text-gray-100">
               <h3 class="text-lg font-semibold">Total de Usuarios</h3>
               <p class="text-3xl font-bold">{{ totalUsers }}</p>
-              <a
-                href="/admin/users"
+              <Link
+                :href="route('admin.users.index')"
                 class="mt-2 inline-block px-4 py-2 text-sm text-white bg-green-500 rounded hover:bg-green-600"
-                >Ver Usuarios</a
+                >Ver Usuarios</Link
               >
             </div>
           </div>
@@ -61,10 +61,10 @@ defineProps({
           >
             <div class="p-6 text-gray-900 dark:text-gray-100">
               <h3 class="text-lg font-semibold">Gestionar Stock</h3>
-              <a
-                href="/orders/manage-stock"
+              <Link
+                :href="route('orders.manageStock')"
                 class="mt-2 inline-block px-4 py-2 text-sm text-white bg-yellow-500 rounded hover:bg-yellow-600"
-                >Gestionar Stock</a
+                >Gestionar Stock</Link
               >
             </div>
           </div>

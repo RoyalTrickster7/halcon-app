@@ -19,8 +19,15 @@ Route::get('/', function () {
     ]);
 });
 
-// Dashboard - Disponible para cualquier usuario autenticado
-Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->get('/dashboard', function () {
+    $totalOrders = \App\Models\Order::count();
+    $totalUsers = \App\Models\User::count();
+    return view('dashboard', [
+        'totalOrders' => $totalOrders,
+        'totalUsers' => $totalUsers,
+    ]);
+})->name('dashboard');
+
 
 // Perfil de usuario (Acceso para cualquier usuario autenticado)
 Route::middleware('auth')->group(function () {
@@ -36,24 +43,13 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     })->name('admin.dashboard');
 
     Route::resource('admin/users', UserController::class, ['as' => 'admin']);
-    Route::resource('orders', OrderController::class);
     Route::get('orders/manage-stock', [OrderController::class, 'manageStock'])->name('orders.manageStock');
-    Route::patch('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-    Route::patch('orders/{order}/upload-photo', [OrderController::class, 'uploadPhoto'])->name('orders.uploadPhoto');
 });
 
-// Gestión de pedidos para Ventas (crear, ver, editar pedidos)
+// Gestión de pedidos (Acceso para Ventas y Admin)
 Route::middleware(['auth', 'role:Ventas|Admin'])->group(function () {
-    Route::resource('orders', OrderController::class)->only(['index', 'create', 'store', 'edit', 'update']);
-});
-
-// Actualización de estado de pedidos para Almacén (modificar estado)
-Route::middleware(['auth', 'role:Almacén|Admin'])->group(function () {
+    Route::resource('orders', OrderController::class)->except(['show']);
     Route::patch('orders/{order}/update-status', [OrderController::class, 'updateStatus'])->name('orders.updateStatus');
-});
-
-// Subir fotos de entrega para Ruta (subir fotos)
-Route::middleware(['auth', 'role:Ruta|Admin'])->group(function () {
     Route::patch('orders/{order}/upload-photo', [OrderController::class, 'uploadPhoto'])->name('orders.uploadPhoto');
 });
 

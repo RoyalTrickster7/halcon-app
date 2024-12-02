@@ -30,7 +30,7 @@ class CustomerOrderStatusController extends Controller
             return redirect()->back()->with('error', 'Pedido no encontrado. Por favor, verifica la información ingresada.');
         }
 
-        // Retornar la vista con la información del pedido
+        // Retornar la vista con la información del pedido y el botón para regresar a `/orders`
         return view('orders.order_status', compact('order'));
     }
 }
