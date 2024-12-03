@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 // Dashboard
-Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'show'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 // Perfil de usuario (Acceso para cualquier usuario autenticado)
 Route::middleware('auth')->group(function () {
